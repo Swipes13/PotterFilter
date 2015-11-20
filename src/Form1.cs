@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PotterFilter {
   public partial class mmusForm : Form {
-    src.Model model = new src.Model();
     public mmusForm() {
       InitializeComponent();
+      src.Model model = new src.Model();
     }
   }
 }

@@ -53,6 +53,7 @@
     <Compile Include="src\math\Matrix.cs" />
     <Compile Include="src\math\RandomExtension.cs" />
     <Compile Include="src\Model.cs" />
+    <Compile Include="src\PotterAlgorithm.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
