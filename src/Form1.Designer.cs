@@ -43,7 +43,7 @@
       this.mnuTrueData = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuGenData = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuFiltrData = new System.Windows.Forms.ToolStripMenuItem();
-      this.pnlWork = new System.Windows.Forms.Panel();
+      this.pnlWork = new System.Windows.Forms.FlowLayoutPanel();
       this.pnlTrueData.SuspendLayout();
       this.pnlGenData.SuspendLayout();
       this.pnlFiltrData.SuspendLayout();
@@ -210,9 +210,11 @@
       // 
       this.pnlWork.Dock = System.Windows.Forms.DockStyle.Fill;
       this.pnlWork.Location = new System.Drawing.Point(549, 24);
+      this.pnlWork.MinimumSize = new System.Drawing.Size(1, 1);
       this.pnlWork.Name = "pnlWork";
       this.pnlWork.Size = new System.Drawing.Size(348, 445);
       this.pnlWork.TabIndex = 5;
+      this.pnlWork.SizeChanged += new System.EventHandler(this.pnlWork_SizeChanged);
       // 
       // mmusForm
       // 
@@ -255,7 +257,7 @@
     private System.Windows.Forms.ToolStripMenuItem mnuTrueData;
     private System.Windows.Forms.ToolStripMenuItem mnuGenData;
     private System.Windows.Forms.ToolStripMenuItem mnuFiltrData;
-    private System.Windows.Forms.Panel pnlWork;
+    private System.Windows.Forms.FlowLayoutPanel pnlWork;
   }
 }
 
