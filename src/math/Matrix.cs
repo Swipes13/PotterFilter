@@ -112,7 +112,6 @@ namespace PotterFilter.src.math {
           if (i + 1 < count) N[i + 1, j] = rand.NextGaussianDouble();
         }
       }
-      //преобразование матрицы случайных чисел, распределенных по нормальному закону с параметрами 0, 1 к матрице с конечными параметрами
       for (int i = 0; i < count; i++) {
         for (int j = 0; j < mq; j++) {
           result[i, j] = expctedValues[j];
@@ -133,7 +132,6 @@ namespace PotterFilter.src.math {
       Matrix N = new Matrix(count, mq);
       Matrix K = new Matrix(mq, mq);
 
-      //Преобразование корреляционной матрицы в ковариационную
       for (int i = 0; i < mq; i++)
         for (int j = 0; j < mq; j++)
           K[i, j] = correlation[i, j] * Math.Sqrt(dispersion[i] * dispersion[j]);
@@ -158,7 +156,7 @@ namespace PotterFilter.src.math {
           if (i + 1 < count) N[i + 1, j] = rand.NextGaussianDouble();
         }
       }
-      //преобразование матрицы случайных чисел, распределенных по нормальному закону с параметрами 0, 1 к матрице с конечными параметрами
+
       for (int i = 0; i < count; i++) {
         for (int j = 0; j < mq; j++) {
           result[i, j] = expctedValues[j];

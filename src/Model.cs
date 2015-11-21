@@ -35,18 +35,18 @@ namespace PotterFilter.src {
     Matrix _Rk, _Qk, _P0, _Bk;
     Matrix _X, _V_Noize, _Y_Observe, _U_Control, _W_Disturb;
 
-    double[] amplitudeA = new double[] { 0.0 };
+    double[] amplitudeA = new double[] { 15 };
     double[] nullExpected = new double[] { 0.0, 0.0 };
-    double[] x0Expected = new double[] { 0.0, 0.0 };
+    double[] x0Expected = new double[] { 1.5, 50.0 };
 
     public Model() {
       _X = new Matrix(CountObs, 2);
       _V_Noize = new Matrix(CountObs, 1);
       _Y_Observe = new Matrix(CountObs, 1);
       _U_Control = new Matrix(CountObs, 1);
-      _W_Disturb = new Matrix(CountObs, /*???? 1 ???*/ 2);
+      _W_Disturb = new Matrix(CountObs, 2);
 
-      double rkD = 0.001, qkD = 0.001, p0D = 0.001, bkD = 0.001;
+      double rkD = 0.001, qkD = 0.1, p0D = 0.1, bkD = 0.1;
       _Rk = Matrix.Diagonal(new double[] { rkD });
       _Qk = Matrix.Diagonal(new double[] { qkD, qkD });
       _P0 = Matrix.Diagonal(new double[] { p0D, p0D });
@@ -58,6 +58,9 @@ namespace PotterFilter.src {
     private bool generateData() {
       Matrix x0 = new Matrix(1, 2);
       if (Matrix.MultiDistr(amplitudeA, _Bk, ref _U_Control) == false) return false;
+      //for (int i = 0; i < CountObs; i++)
+       // _U_Control[i, 0] = amplitudeA[0];
+
       if (Matrix.MultiDistr(x0Expected, _P0, ref x0) == false) return false;
 
       if (Matrix.MultiDistr(nullExpected, _Rk, ref _V_Noize) == false) return false;

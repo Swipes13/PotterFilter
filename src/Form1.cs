@@ -16,7 +16,7 @@ namespace PotterFilter {
     PotterAlgorithm potter = null;
     public mmusForm() {
       InitializeComponent();
-      int pnlSize = 150;
+      int pnlSize = 250;
       pnlTrueData.DataBindings.Add(new Binding("Visible", mnuTrueData, "Checked"));
       pnlGenData.DataBindings.Add(new Binding("Visible", mnuGenData, "Checked"));
       pnlFiltrData.DataBindings.Add(new Binding("Visible", mnuFiltrData, "Checked"));
@@ -45,30 +45,28 @@ namespace PotterFilter {
       rtbTrueData.Text = "x1\tx2\ty" + Environment.NewLine;
       int pbxHeight = 200;
       Plot p1 = new Plot(new System.Drawing.Size(pnlWork.Size.Width, pbxHeight));
-      Plot p2 = new Plot(new System.Drawing.Size(pnlWork.Size.Width, pbxHeight));
       pnlWork.Controls.Add(p1);
-      pnlWork.Controls.Add(p2);
       rtbGenData.Text = "x1\tx2\ty" + Environment.NewLine;
       int r = 4;
       List<double[]> p1Verts = new List<double[]>();
       List<double[]> p2Verts = new List<double[]>();
       for (int i = 0; i < Model.CountObs; i++) {
         rtbGenData.Text += Math.Round(mdl.X[i, 0], r).ToString().Replace(',', '.') + "\t";
-        p1Verts.Add(new double[] { mdl.X[i, 0], mdl.Y[i, 0] });
         rtbGenData.Text += Math.Round(mdl.X[i, 1], r).ToString().Replace(',', '.') + "\t";
-        p2Verts.Add(new double[] { mdl.X[i, 1], mdl.Y[i, 0] });
         rtbGenData.Text += Math.Round(mdl.Y[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
+        p1Verts.Add(new double[] { i, mdl.Y[i, 0] });
       }
-      p1.AddPoints(p1Verts.OrderBy(x => x[0]).ToArray());
-      p2.AddPoints(p2Verts.OrderBy(x => x[0]).ToArray());
+      p1.AddPoints(p1Verts.OrderBy(x => x[0]).ToArray(),new Pen(Color.Red,1.8f));
 
-      p1.Draw(); p2.Draw();
       rtbfiltrData.Text = "x1\tx2\ty" + Environment.NewLine;
       for (int i = 0; i < Model.CountObs; i++) {
         rtbfiltrData.Text += Math.Round(alg.Xtt[i, 0], r).ToString().Replace(',', '.') + "\t";
         rtbfiltrData.Text += Math.Round(alg.Xtt[i, 1], r).ToString().Replace(',', '.') + "\t";
         rtbfiltrData.Text += Math.Round(alg.Yt[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
+        p2Verts.Add(new double[] { i, alg.Yt[i, 0] });
       }
+      p1.AddPoints(p2Verts.OrderBy(x => x[0]).ToArray(), new Pen(Color.Blue, 1.8f));
+      p1.Draw();
     }
 
     private void mnuItemClick(object sender, EventArgs e) {
