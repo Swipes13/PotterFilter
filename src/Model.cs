@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PotterFilter.src.math;
-using System.Windows.Forms;
 
 namespace PotterFilter.src {
   class Model {
@@ -53,13 +52,8 @@ namespace PotterFilter.src {
       _P0 = Matrix.Diagonal(new double[] { p0D, p0D });
       _Bk = Matrix.Diagonal(new double[] { bkD });
 
-      try {
-        if (generateData())
-          _initialized = true;
-      }
-      catch(Exception ex){
-        MessageBox.Show(ex.Message,"Error!");
-      }
+      if (generateData())
+        _initialized = true;
     }
     private bool generateData() {
       Matrix x0 = new Matrix(1, 2);
