@@ -182,6 +182,15 @@ namespace PotterFilter.src.math {
 
       return retValue;
     }
+    static public Matrix operator *(double value, Matrix m1) {
+      Matrix retValue = new Matrix(m1.LenghtX(), m1.LenghtY());
+
+      for (int i = 0; i < m1.LenghtX(); i++)
+        for (int j = 0; j < m1.LenghtY(); j++)
+          retValue[i, j] = m1[i, j] * value;
+
+      return retValue;
+    }
     static public Matrix operator +(Matrix m1, Matrix m2) {
       if (m1.LenghtX() != m2.LenghtX() || m1.LenghtY() != m2.LenghtY())
         throw new InvalidOperationException("Сложение матриц " + m1.DimsToString() + "+" + m2.DimsToString() + "!");
@@ -190,11 +199,22 @@ namespace PotterFilter.src.math {
 
       for (int i = 0; i < m1.LenghtX(); i++)
         for (int j = 0; j < m1.LenghtY(); j++)
-          retValue[i, j] = m1[i, j] * m2[i, j];
+          retValue[i, j] = m1[i, j] + m2[i, j];
 
       return retValue;
     }
+    static public Matrix operator -(Matrix m1, Matrix m2) {
+      if (m1.LenghtX() != m2.LenghtX() || m1.LenghtY() != m2.LenghtY())
+        throw new InvalidOperationException("Вычитание матриц " + m1.DimsToString() + "-" + m2.DimsToString() + "!");
 
+      Matrix retValue = new Matrix(m1.LenghtX(), m1.LenghtY());
+
+      for (int i = 0; i < m1.LenghtX(); i++)
+        for (int j = 0; j < m1.LenghtY(); j++)
+          retValue[i, j] = m1[i, j] - m2[i, j];
+
+      return retValue;
+    }
     public Matrix Decompose() {
       if (LenghtX() != LenghtY())
         throw new InvalidOperationException("Факторизация матрицы размерности " + DimsToString() + "!");

@@ -8,10 +8,21 @@ using System.Windows.Forms;
 
 namespace PotterFilter.src {
   class Model {
-    public bool DataOK { get { return _initialized; } private set { _initialized = value; } }
-    bool _initialized = false;
+    public const int CountObs = 25;
 
-    const int countObs = 25;
+    public bool DataOK { get { return _initialized; } private set { _initialized = value; } }
+    public Matrix P0 { get { return _P0; } private set { } }
+    public Matrix X0 { get { return _X[0]; } private set { } }
+    public Matrix H { get { return _H; } private set { } }
+    public Matrix Phi { get { return _Phi; } private set { } }
+    public Matrix Ksi { get { return _Ksi; } private set { } }
+    public Matrix U { get { return _U_Control; } private set { } }
+    public Matrix Rk { get { return _Rk; } private set { } }
+
+    public Matrix X { get { return _X; } private set { } }
+    public Matrix Y { get { return _Y_Observe; } private set { } }
+
+    bool _initialized = false;
     Matrix _H = new Matrix(2, new double[] { 1.0, 0.0 });
     Matrix _Г = new Matrix(2, new double[] {
       0.0008682425818, 0.03790917931,
@@ -23,18 +34,19 @@ namespace PotterFilter.src {
       -0.02170606454, 0.05227051732  });
 
     Matrix _Rk, _Qk, _P0, _Bk;
-
-    Matrix _X = new Matrix(countObs, 2);
-    Matrix _V_Noize = new Matrix(countObs, 1);
-    Matrix _Y_Observe = new Matrix(countObs, 1);
-    Matrix _U_Control = new Matrix(countObs, 1);
-    Matrix _W_Disturb = new Matrix(countObs, /*???? 1 ???*/ 2);
+    Matrix _X, _V_Noize, _Y_Observe, _U_Control, _W_Disturb;
 
     double[] amplitudeA = new double[] { 0.0 };
     double[] nullExpected = new double[] { 0.0, 0.0 };
     double[] x0Expected = new double[] { 0.0, 0.0 };
 
     public Model() {
+      _X = new Matrix(CountObs, 2);
+      _V_Noize = new Matrix(CountObs, 1);
+      _Y_Observe = new Matrix(CountObs, 1);
+      _U_Control = new Matrix(CountObs, 1);
+      _W_Disturb = new Matrix(CountObs, /*???? 1 ???*/ 2);
+
       double rkD = 0.001, qkD = 0.001, p0D = 0.001, bkD = 0.001;
       _Rk = Matrix.Diagonal(new double[] { rkD });
       _Qk = Matrix.Diagonal(new double[] { qkD, qkD });
@@ -60,7 +72,7 @@ namespace PotterFilter.src {
       _X[0] = x0;
       _Y_Observe[0] = _H * _X[0].Transpose() +_V_Noize[0];
 
-      for (int i = 1; i < countObs; i++) {
+      for (int i = 1; i < CountObs; i++) {
         _X[i] = (_Phi * _X[i - 1].Transpose() + _Ksi * _U_Control[i] + _Г * _W_Disturb[i].Transpose()).Transpose();
         _Y_Observe[i] = _H * _X[i].Transpose() + _V_Noize[i];
       }
