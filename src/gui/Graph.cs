@@ -10,6 +10,8 @@ namespace PotterFilter.src.gui {
     public List<PointF> TruePoints;
     public PointF[] Points;
     Pen pen;
+    public Color Color { get { return color; } private set { } }
+    Color color;
     public String Name { get { return name; } private set { } }
     String name;
     public bool NeedToDraw { get { return draw; } set { draw = value; } }
@@ -25,9 +27,10 @@ namespace PotterFilter.src.gui {
     double yMin = 0.0, yMax = 0.0;
     double deltaY = 0.0;
 
-    public Graph(double[][] points_, Pen p, String name_) {
+    public Graph(double[][] points_, Color color_, String name_) {
       name = name_;
-      pen = p;
+      color = color_;
+      pen = new Pen(color_,2.0f);
       TruePoints = new List<PointF>();
 
       foreach (double[] point in points_) {
@@ -40,8 +43,7 @@ namespace PotterFilter.src.gui {
       Points = new PointF[TruePoints.Count];
     }
     public void Draw(Graphics gr){
-      if(draw)
-        gr.DrawLines(pen, Points);
+      gr.DrawLines(pen, Points);
     }
   }
 }

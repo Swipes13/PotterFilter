@@ -123,8 +123,8 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="plotMain.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAV0AAAG5CAYAAAAtXecjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAWxSURBVHhe7dQxAQAADMOg+TfducgFIrgBkJEuQEi6ACHp
+        iVBORw0KGgoAAAANSUhEUgAAAV0AAAGlCAYAAABZSSXDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVwSURBVHhe7dQxAQAADMOg+TfducgFIrgBkJEuQEi6ACHp
         AoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5A
         SLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSk
         CxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoA
@@ -147,9 +147,7 @@
         ugAh6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQL
         EJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh
         6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLEJIu
-        QEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKE
-        pAsQki5ASLoAIekChKQLEJIuQEi6ACHpAoSkCxCSLkBIugAh6QKEpAuQ2R6lSfuCOOYivAAAAABJRU5E
-        rkJggg==
+        QEi6ACHpAoSkCxCSLkBIugAh6QKEpAsQki5ASLoAIekChKQLkNkeomJSPpDrrbEAAAAASUVORK5CYII=
 </value>
   </data>
 </root>

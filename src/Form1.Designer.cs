@@ -32,6 +32,11 @@
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuX = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuYtrue = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuYgen = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuYfilter = new System.Windows.Forms.ToolStripMenuItem();
       this.spCntMain = new System.Windows.Forms.SplitContainer();
       this.panel1 = new System.Windows.Forms.Panel();
       this.btnGen = new System.Windows.Forms.Button();
@@ -55,16 +60,15 @@
       this.label1 = new System.Windows.Forms.Label();
       this.panel2 = new System.Windows.Forms.Panel();
       this.chbDistU = new System.Windows.Forms.CheckBox();
-      this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuX = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuYtrue = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuYgen = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuYfilter = new System.Windows.Forms.ToolStripMenuItem();
+      this.panel7 = new System.Windows.Forms.Panel();
+      this.tbxDiff = new System.Windows.Forms.TextBox();
+      this.mnuGenPanel = new System.Windows.Forms.ToolStripMenuItem();
       this.plotMain = new PotterFilter.src.gui.Plot();
       this.drtbYFilter = new PotterFilter.src.gui.DataRtb();
       this.drtbYGen = new PotterFilter.src.gui.DataRtb();
       this.drtbYTrue = new PotterFilter.src.gui.DataRtb();
       this.drtbX = new PotterFilter.src.gui.DataRtb();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.menuStrip1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.spCntMain)).BeginInit();
       this.spCntMain.Panel1.SuspendLayout();
@@ -76,6 +80,7 @@
       this.panel4.SuspendLayout();
       this.panel3.SuspendLayout();
       this.panel2.SuspendLayout();
+      this.panel7.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.plotMain)).BeginInit();
       this.SuspendLayout();
       // 
@@ -101,9 +106,58 @@
       // generateToolStripMenuItem
       // 
       this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
-      this.generateToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+      this.generateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
       this.generateToolStripMenuItem.Text = "Generate";
       this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
+      // 
+      // viewToolStripMenuItem
+      // 
+      this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuX,
+            this.mnuYtrue,
+            this.mnuYgen,
+            this.mnuYfilter,
+            this.toolStripSeparator1,
+            this.mnuGenPanel});
+      this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+      this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+      this.viewToolStripMenuItem.Text = "View";
+      // 
+      // mnuX
+      // 
+      this.mnuX.Checked = true;
+      this.mnuX.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.mnuX.Name = "mnuX";
+      this.mnuX.Size = new System.Drawing.Size(180, 22);
+      this.mnuX.Text = "X";
+      this.mnuX.Click += new System.EventHandler(this.mnuX_Click);
+      // 
+      // mnuYtrue
+      // 
+      this.mnuYtrue.Checked = true;
+      this.mnuYtrue.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.mnuYtrue.Name = "mnuYtrue";
+      this.mnuYtrue.Size = new System.Drawing.Size(180, 22);
+      this.mnuYtrue.Text = "Y true";
+      this.mnuYtrue.Click += new System.EventHandler(this.mnuX_Click);
+      // 
+      // mnuYgen
+      // 
+      this.mnuYgen.Checked = true;
+      this.mnuYgen.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.mnuYgen.Name = "mnuYgen";
+      this.mnuYgen.Size = new System.Drawing.Size(180, 22);
+      this.mnuYgen.Text = "Y gen";
+      this.mnuYgen.Click += new System.EventHandler(this.mnuX_Click);
+      // 
+      // mnuYfilter
+      // 
+      this.mnuYfilter.Checked = true;
+      this.mnuYfilter.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.mnuYfilter.Name = "mnuYfilter";
+      this.mnuYfilter.Size = new System.Drawing.Size(180, 22);
+      this.mnuYfilter.Text = "Y filter";
+      this.mnuYfilter.Click += new System.EventHandler(this.mnuX_Click);
       // 
       // spCntMain
       // 
@@ -124,7 +178,7 @@
       this.spCntMain.Panel2.Controls.Add(this.drtbX);
       this.spCntMain.Panel2.Padding = new System.Windows.Forms.Padding(2);
       this.spCntMain.Panel2.SizeChanged += new System.EventHandler(this.spCntMain_Panel2_SizeChanged);
-      this.spCntMain.Size = new System.Drawing.Size(897, 445);
+      this.spCntMain.Size = new System.Drawing.Size(897, 425);
       this.spCntMain.SplitterDistance = 175;
       this.spCntMain.TabIndex = 5;
       // 
@@ -355,60 +409,40 @@
       this.chbDistU.Text = "distribute U";
       this.chbDistU.UseVisualStyleBackColor = true;
       // 
-      // viewToolStripMenuItem
+      // panel7
       // 
-      this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuX,
-            this.mnuYtrue,
-            this.mnuYgen,
-            this.mnuYfilter});
-      this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-      this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-      this.viewToolStripMenuItem.Text = "View";
+      this.panel7.Controls.Add(this.tbxDiff);
+      this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.panel7.Location = new System.Drawing.Point(0, 449);
+      this.panel7.Name = "panel7";
+      this.panel7.Size = new System.Drawing.Size(897, 20);
+      this.panel7.TabIndex = 6;
       // 
-      // mnuX
+      // tbxDiff
       // 
-      this.mnuX.Checked = true;
-      this.mnuX.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.mnuX.Name = "mnuX";
-      this.mnuX.Size = new System.Drawing.Size(152, 22);
-      this.mnuX.Text = "X";
-      this.mnuX.Click += new System.EventHandler(this.mnuX_Click);
+      this.tbxDiff.Dock = System.Windows.Forms.DockStyle.Left;
+      this.tbxDiff.Location = new System.Drawing.Point(0, 0);
+      this.tbxDiff.Name = "tbxDiff";
+      this.tbxDiff.ReadOnly = true;
+      this.tbxDiff.Size = new System.Drawing.Size(157, 20);
+      this.tbxDiff.TabIndex = 0;
+      this.tbxDiff.Text = "|Yf - Yt| = ";
       // 
-      // mnuYtrue
+      // mnuGenPanel
       // 
-      this.mnuYtrue.Checked = true;
-      this.mnuYtrue.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.mnuYtrue.Name = "mnuYtrue";
-      this.mnuYtrue.Size = new System.Drawing.Size(152, 22);
-      this.mnuYtrue.Text = "Y true";
-      this.mnuYtrue.Click += new System.EventHandler(this.mnuX_Click);
-      // 
-      // mnuYgen
-      // 
-      this.mnuYgen.Checked = true;
-      this.mnuYgen.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.mnuYgen.Name = "mnuYgen";
-      this.mnuYgen.Size = new System.Drawing.Size(152, 22);
-      this.mnuYgen.Text = "Y gen";
-      this.mnuYgen.Click += new System.EventHandler(this.mnuX_Click);
-      // 
-      // mnuYfilter
-      // 
-      this.mnuYfilter.Checked = true;
-      this.mnuYfilter.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.mnuYfilter.Name = "mnuYfilter";
-      this.mnuYfilter.Size = new System.Drawing.Size(152, 22);
-      this.mnuYfilter.Text = "Y filter";
-      this.mnuYfilter.Click += new System.EventHandler(this.mnuX_Click);
+      this.mnuGenPanel.Name = "mnuGenPanel";
+      this.mnuGenPanel.Size = new System.Drawing.Size(180, 22);
+      this.mnuGenPanel.Text = "Collapse work panel";
+      this.mnuGenPanel.Click += new System.EventHandler(this.mnuX_Click);
       // 
       // plotMain
       // 
       this.plotMain.Dock = System.Windows.Forms.DockStyle.Fill;
       this.plotMain.Image = ((System.Drawing.Image)(resources.GetObject("plotMain.Image")));
       this.plotMain.Location = new System.Drawing.Point(367, 2);
+      this.plotMain.MinimumSize = new System.Drawing.Size(1, 1);
       this.plotMain.Name = "plotMain";
-      this.plotMain.Size = new System.Drawing.Size(349, 441);
+      this.plotMain.Size = new System.Drawing.Size(349, 421);
       this.plotMain.TabIndex = 4;
       this.plotMain.TabStop = false;
       // 
@@ -418,7 +452,7 @@
       this.drtbYFilter.Dock = System.Windows.Forms.DockStyle.Left;
       this.drtbYFilter.Location = new System.Drawing.Point(292, 2);
       this.drtbYFilter.Name = "drtbYFilter";
-      this.drtbYFilter.Size = new System.Drawing.Size(75, 441);
+      this.drtbYFilter.Size = new System.Drawing.Size(75, 421);
       this.drtbYFilter.TabIndex = 3;
       this.drtbYFilter.Text = "";
       // 
@@ -428,7 +462,7 @@
       this.drtbYGen.Dock = System.Windows.Forms.DockStyle.Left;
       this.drtbYGen.Location = new System.Drawing.Point(217, 2);
       this.drtbYGen.Name = "drtbYGen";
-      this.drtbYGen.Size = new System.Drawing.Size(75, 441);
+      this.drtbYGen.Size = new System.Drawing.Size(75, 421);
       this.drtbYGen.TabIndex = 2;
       this.drtbYGen.Text = "";
       // 
@@ -438,7 +472,7 @@
       this.drtbYTrue.Dock = System.Windows.Forms.DockStyle.Left;
       this.drtbYTrue.Location = new System.Drawing.Point(142, 2);
       this.drtbYTrue.Name = "drtbYTrue";
-      this.drtbYTrue.Size = new System.Drawing.Size(75, 441);
+      this.drtbYTrue.Size = new System.Drawing.Size(75, 421);
       this.drtbYTrue.TabIndex = 1;
       this.drtbYTrue.Text = "";
       // 
@@ -448,9 +482,14 @@
       this.drtbX.Dock = System.Windows.Forms.DockStyle.Left;
       this.drtbX.Location = new System.Drawing.Point(2, 2);
       this.drtbX.Name = "drtbX";
-      this.drtbX.Size = new System.Drawing.Size(140, 441);
+      this.drtbX.Size = new System.Drawing.Size(140, 421);
       this.drtbX.TabIndex = 0;
       this.drtbX.Text = "";
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
       // 
       // mmusForm
       // 
@@ -458,6 +497,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(897, 469);
       this.Controls.Add(this.spCntMain);
+      this.Controls.Add(this.panel7);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
       this.Name = "mmusForm";
@@ -480,6 +520,8 @@
       this.panel3.PerformLayout();
       this.panel2.ResumeLayout(false);
       this.panel2.PerformLayout();
+      this.panel7.ResumeLayout(false);
+      this.panel7.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.plotMain)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -524,6 +566,10 @@
     private System.Windows.Forms.ToolStripMenuItem mnuYtrue;
     private System.Windows.Forms.ToolStripMenuItem mnuYgen;
     private System.Windows.Forms.ToolStripMenuItem mnuYfilter;
+    private System.Windows.Forms.Panel panel7;
+    private System.Windows.Forms.TextBox tbxDiff;
+    private System.Windows.Forms.ToolStripMenuItem mnuGenPanel;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
   }
 }
 

@@ -45,7 +45,7 @@ namespace PotterFilter.src.gui {
         b.X = transformPoint.X + Risk.width;
         b.Y = transformPoint.Y;
 
-        valuePoint.X = transformPoint.X - Risk.width - valueStep*10;
+        valuePoint.X = transformPoint.X - Risk.width - valueStep*12;
         valuePoint.Y = transformPoint.Y - valueStep * 3;
       }
       else {

@@ -66,12 +66,20 @@ namespace PotterFilter.src.gui {
     void PlotCtxData_Click(object sender, EventArgs e) {
     }
     public void Draw() {
-      foreach (Graph g in graphs)
-        g.Draw(graphic);
+      int forS = 0;
+      foreach (Graph g in graphs) {
+        if (g.NeedToDraw) {
+          g.Draw(graphic);
+          graphic.DrawString(g.Name, SystemFonts.DefaultFont, new SolidBrush(g.Color), new PointF(Width - 100, Height - 100 + forS * 20));
+          forS++;
+        }
+      }
       foreach (Risk r in risksX) 
         r.Draw(graphic, riskPen);
       foreach (Risk r in risksY)
         r.Draw(graphic, riskPen);
+
+
     }
     public void ReSize() {
       Image = new Bitmap(Size.Width, Size.Height);
