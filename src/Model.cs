@@ -20,6 +20,7 @@ namespace PotterFilter.src {
 
     public Matrix X { get { return _X; } private set { } }
     public Matrix Y { get { return _Y_Observe; } private set { } }
+    public Matrix Y_True { get { return _Y_True; } private set { } }
 
     bool _initialized = false;
     Matrix _H = new Matrix(2, new double[] { 1.0, 0.0 });
@@ -33,14 +34,15 @@ namespace PotterFilter.src {
       -0.02170606454, 0.05227051732  });
 
     Matrix _Rk, _Qk, _P0, _Bk;
-    Matrix _X, _V_Noize, _Y_Observe, _U_Control, _W_Disturb;
+    Matrix _X, _V_Noize, _Y_Observe, _Y_True, _U_Control, _W_Disturb;
 
     double[] amplitudeA = new double[] { 15 };
     double[] nullExpected = new double[] { 0.0, 0.0 };
-    double[] x0Expected = new double[] { 1.5, 50.0 };
+    double[] x0Expected = new double[] { 0.0, 0.0 };
 
     public Model() {
       _X = new Matrix(CountObs, 2);
+      _Y_True = new Matrix(CountObs, 1);
       _V_Noize = new Matrix(CountObs, 1);
       _Y_Observe = new Matrix(CountObs, 1);
       _U_Control = new Matrix(CountObs, 1);
@@ -57,9 +59,9 @@ namespace PotterFilter.src {
     }
     private bool generateData() {
       Matrix x0 = new Matrix(1, 2);
-      if (Matrix.MultiDistr(amplitudeA, _Bk, ref _U_Control) == false) return false;
-      //for (int i = 0; i < CountObs; i++)
-       // _U_Control[i, 0] = amplitudeA[0];
+      //if (Matrix.MultiDistr(amplitudeA, _Bk, ref _U_Control) == false) return false;
+      for (int i = 0; i < CountObs; i++)
+        _U_Control[i, 0] = amplitudeA[0];
 
       if (Matrix.MultiDistr(x0Expected, _P0, ref x0) == false) return false;
 
@@ -72,6 +74,7 @@ namespace PotterFilter.src {
       for (int i = 1; i < CountObs; i++) {
         _X[i] = (_Phi * _X[i - 1].Transpose() + _Ksi * _U_Control[i] + _Г * _W_Disturb[i].Transpose()).Transpose();
         _Y_Observe[i] = _H * _X[i].Transpose() + _V_Noize[i];
+        _Y_True[i] = _H * _X[i].Transpose();
       }
 
       return true;

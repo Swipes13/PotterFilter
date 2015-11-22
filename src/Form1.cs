@@ -16,7 +16,7 @@ namespace PotterFilter {
     PotterAlgorithm potter = null;
     public mmusForm() {
       InitializeComponent();
-      int pnlSize = 250;
+      int pnlSize = 150;
       pnlTrueData.DataBindings.Add(new Binding("Visible", mnuTrueData, "Checked"));
       pnlGenData.DataBindings.Add(new Binding("Visible", mnuGenData, "Checked"));
       pnlFiltrData.DataBindings.Add(new Binding("Visible", mnuFiltrData, "Checked"));
@@ -42,14 +42,23 @@ namespace PotterFilter {
     }
 
     void fillRtbLog(Model mdl, PotterAlgorithm alg) {
-      rtbTrueData.Text = "x1\tx2\ty" + Environment.NewLine;
+      int r = 4;
       int pbxHeight = 200;
       Plot p1 = new Plot(new System.Drawing.Size(pnlWork.Size.Width, pbxHeight));
       pnlWork.Controls.Add(p1);
+
+      rtbTrueData.Text = "x1\tx2\ty" + Environment.NewLine;
+      List<double[]> pTrueVerts = new List<double[]>();
+      for (int i = 0; i < Model.CountObs; i++) {
+        rtbGenData.Text += Math.Round(mdl.X[i, 0], r).ToString().Replace(',', '.') + "\t";
+        rtbGenData.Text += Math.Round(mdl.X[i, 1], r).ToString().Replace(',', '.') + "\t";
+        rtbGenData.Text += Math.Round(mdl.Y_True[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
+        pTrueVerts.Add(new double[] { i, mdl.Y_True[i, 0] });
+      }
+      p1.AddPoints(pTrueVerts.OrderBy(x => x[0]).ToArray(), new Pen(Color.Green, 1.8f));
+
       rtbGenData.Text = "x1\tx2\ty" + Environment.NewLine;
-      int r = 4;
       List<double[]> p1Verts = new List<double[]>();
-      List<double[]> p2Verts = new List<double[]>();
       for (int i = 0; i < Model.CountObs; i++) {
         rtbGenData.Text += Math.Round(mdl.X[i, 0], r).ToString().Replace(',', '.') + "\t";
         rtbGenData.Text += Math.Round(mdl.X[i, 1], r).ToString().Replace(',', '.') + "\t";
@@ -59,6 +68,7 @@ namespace PotterFilter {
       p1.AddPoints(p1Verts.OrderBy(x => x[0]).ToArray(),new Pen(Color.Red,1.8f));
 
       rtbfiltrData.Text = "x1\tx2\ty" + Environment.NewLine;
+      List<double[]> p2Verts = new List<double[]>();
       for (int i = 0; i < Model.CountObs; i++) {
         rtbfiltrData.Text += Math.Round(alg.Xtt[i, 0], r).ToString().Replace(',', '.') + "\t";
         rtbfiltrData.Text += Math.Round(alg.Xtt[i, 1], r).ToString().Replace(',', '.') + "\t";
@@ -66,6 +76,10 @@ namespace PotterFilter {
         p2Verts.Add(new double[] { i, alg.Yt[i, 0] });
       }
       p1.AddPoints(p2Verts.OrderBy(x => x[0]).ToArray(), new Pen(Color.Blue, 1.8f));
+
+
+
+
       p1.Draw();
     }
 
