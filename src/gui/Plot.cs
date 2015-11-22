@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace PotterFilter.src.graphic {
+namespace PotterFilter.src.gui {
   class Plot : PictureBox {
     Graphics graphic = null;
     List<Pen> pens = new List<Pen>();

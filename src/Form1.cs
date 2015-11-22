@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PotterFilter.src;
-using PotterFilter.src.graphic;
+using PotterFilter.src.gui;
 
 namespace PotterFilter {
   public partial class mmusForm : Form {
@@ -38,48 +38,20 @@ namespace PotterFilter {
         MessageBox.Show(ex.Message,"Error!");
       }
 
-      fillRtbLog(model, potter);
+      fillRTBs(model, potter);
     }
 
-    void fillRtbLog(Model mdl, PotterAlgorithm alg) {
-      int r = 4;
+    void fillRTBs(Model mdl, PotterAlgorithm alg) {
       int pbxHeight = 200;
       Plot p1 = new Plot(new System.Drawing.Size(pnlWork.Size.Width, pbxHeight));
       pnlWork.Controls.Add(p1);
 
-      rtbTrueData.Text = "x1\tx2\ty" + Environment.NewLine;
-      List<double[]> pTrueVerts = new List<double[]>();
-      for (int i = 0; i < Model.CountObs; i++) {
-        rtbGenData.Text += Math.Round(mdl.X[i, 0], r).ToString().Replace(',', '.') + "\t";
-        rtbGenData.Text += Math.Round(mdl.X[i, 1], r).ToString().Replace(',', '.') + "\t";
-        rtbGenData.Text += Math.Round(mdl.Y_True[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
-        pTrueVerts.Add(new double[] { i, mdl.Y_True[i, 0] });
-      }
-      p1.AddPoints(pTrueVerts.OrderBy(x => x[0]).ToArray(), new Pen(Color.Green, 1.8f));
-
-      rtbGenData.Text = "x1\tx2\ty" + Environment.NewLine;
-      List<double[]> p1Verts = new List<double[]>();
-      for (int i = 0; i < Model.CountObs; i++) {
-        rtbGenData.Text += Math.Round(mdl.X[i, 0], r).ToString().Replace(',', '.') + "\t";
-        rtbGenData.Text += Math.Round(mdl.X[i, 1], r).ToString().Replace(',', '.') + "\t";
-        rtbGenData.Text += Math.Round(mdl.Y[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
-        p1Verts.Add(new double[] { i, mdl.Y[i, 0] });
-      }
-      p1.AddPoints(p1Verts.OrderBy(x => x[0]).ToArray(),new Pen(Color.Red,1.8f));
-
-      rtbfiltrData.Text = "x1\tx2\ty" + Environment.NewLine;
-      List<double[]> p2Verts = new List<double[]>();
-      for (int i = 0; i < Model.CountObs; i++) {
-        rtbfiltrData.Text += Math.Round(alg.Xtt[i, 0], r).ToString().Replace(',', '.') + "\t";
-        rtbfiltrData.Text += Math.Round(alg.Xtt[i, 1], r).ToString().Replace(',', '.') + "\t";
-        rtbfiltrData.Text += Math.Round(alg.Yt[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
-        p2Verts.Add(new double[] { i, alg.Yt[i, 0] });
-      }
-      p1.AddPoints(p2Verts.OrderBy(x => x[0]).ToArray(), new Pen(Color.Blue, 1.8f));
-
-
-
-
+      drtbTrue.FillData(mdl.X, mdl.Y_True);
+      p1.AddPoints(drtbTrue.Verts, new Pen(Color.Green, 1.8f));
+      drtbGen.FillData(mdl.X, mdl.Y);
+      p1.AddPoints(drtbGen.Verts, new Pen(Color.Red, 1.8f));
+      drtbFiltr.FillData(alg.Xtt, alg.Yt);
+      p1.AddPoints(drtbFiltr.Verts, new Pen(Color.Blue, 1.8f));
       p1.Draw();
     }
 

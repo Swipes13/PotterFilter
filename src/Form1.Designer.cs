@@ -28,14 +28,11 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.rtbTrueData = new System.Windows.Forms.RichTextBox();
       this.pnlTrueData = new System.Windows.Forms.Panel();
       this.label1 = new System.Windows.Forms.Label();
       this.pnlGenData = new System.Windows.Forms.Panel();
-      this.rtbGenData = new System.Windows.Forms.RichTextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.pnlFiltrData = new System.Windows.Forms.Panel();
-      this.rtbfiltrData = new System.Windows.Forms.RichTextBox();
       this.label3 = new System.Windows.Forms.Label();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,26 +41,18 @@
       this.mnuGenData = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuFiltrData = new System.Windows.Forms.ToolStripMenuItem();
       this.pnlWork = new System.Windows.Forms.FlowLayoutPanel();
+      this.drtbGen = new PotterFilter.src.gui.DataRtb();
+      this.drtbFiltr = new PotterFilter.src.gui.DataRtb();
+      this.drtbTrue = new PotterFilter.src.gui.DataRtb();
       this.pnlTrueData.SuspendLayout();
       this.pnlGenData.SuspendLayout();
       this.pnlFiltrData.SuspendLayout();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
-      // rtbTrueData
-      // 
-      this.rtbTrueData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.rtbTrueData.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.rtbTrueData.Font = new System.Drawing.Font("Consolas", 8F);
-      this.rtbTrueData.Location = new System.Drawing.Point(2, 31);
-      this.rtbTrueData.Name = "rtbTrueData";
-      this.rtbTrueData.Size = new System.Drawing.Size(179, 412);
-      this.rtbTrueData.TabIndex = 0;
-      this.rtbTrueData.Text = "";
-      // 
       // pnlTrueData
       // 
-      this.pnlTrueData.Controls.Add(this.rtbTrueData);
+      this.pnlTrueData.Controls.Add(this.drtbTrue);
       this.pnlTrueData.Controls.Add(this.label1);
       this.pnlTrueData.Dock = System.Windows.Forms.DockStyle.Left;
       this.pnlTrueData.Location = new System.Drawing.Point(0, 24);
@@ -85,7 +74,7 @@
       // 
       // pnlGenData
       // 
-      this.pnlGenData.Controls.Add(this.rtbGenData);
+      this.pnlGenData.Controls.Add(this.drtbGen);
       this.pnlGenData.Controls.Add(this.label2);
       this.pnlGenData.Dock = System.Windows.Forms.DockStyle.Left;
       this.pnlGenData.Location = new System.Drawing.Point(183, 24);
@@ -93,17 +82,6 @@
       this.pnlGenData.Padding = new System.Windows.Forms.Padding(2);
       this.pnlGenData.Size = new System.Drawing.Size(183, 445);
       this.pnlGenData.TabIndex = 2;
-      // 
-      // rtbGenData
-      // 
-      this.rtbGenData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.rtbGenData.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.rtbGenData.Font = new System.Drawing.Font("Consolas", 8F);
-      this.rtbGenData.Location = new System.Drawing.Point(2, 31);
-      this.rtbGenData.Name = "rtbGenData";
-      this.rtbGenData.Size = new System.Drawing.Size(179, 412);
-      this.rtbGenData.TabIndex = 0;
-      this.rtbGenData.Text = "";
       // 
       // label2
       // 
@@ -118,7 +96,7 @@
       // 
       // pnlFiltrData
       // 
-      this.pnlFiltrData.Controls.Add(this.rtbfiltrData);
+      this.pnlFiltrData.Controls.Add(this.drtbFiltr);
       this.pnlFiltrData.Controls.Add(this.label3);
       this.pnlFiltrData.Dock = System.Windows.Forms.DockStyle.Left;
       this.pnlFiltrData.Location = new System.Drawing.Point(366, 24);
@@ -126,17 +104,6 @@
       this.pnlFiltrData.Padding = new System.Windows.Forms.Padding(2);
       this.pnlFiltrData.Size = new System.Drawing.Size(183, 445);
       this.pnlFiltrData.TabIndex = 3;
-      // 
-      // rtbfiltrData
-      // 
-      this.rtbfiltrData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.rtbfiltrData.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.rtbfiltrData.Font = new System.Drawing.Font("Consolas", 8F);
-      this.rtbfiltrData.Location = new System.Drawing.Point(2, 31);
-      this.rtbfiltrData.Name = "rtbfiltrData";
-      this.rtbfiltrData.Size = new System.Drawing.Size(179, 412);
-      this.rtbfiltrData.TabIndex = 0;
-      this.rtbfiltrData.Text = "";
       // 
       // label3
       // 
@@ -216,6 +183,36 @@
       this.pnlWork.TabIndex = 5;
       this.pnlWork.SizeChanged += new System.EventHandler(this.pnlWork_SizeChanged);
       // 
+      // drtbGen
+      // 
+      this.drtbGen.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.drtbGen.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.drtbGen.Location = new System.Drawing.Point(2, 31);
+      this.drtbGen.Name = "drtbGen";
+      this.drtbGen.Size = new System.Drawing.Size(179, 412);
+      this.drtbGen.TabIndex = 2;
+      this.drtbGen.Text = "";
+      // 
+      // drtbFiltr
+      // 
+      this.drtbFiltr.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.drtbFiltr.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.drtbFiltr.Location = new System.Drawing.Point(2, 31);
+      this.drtbFiltr.Name = "drtbFiltr";
+      this.drtbFiltr.Size = new System.Drawing.Size(179, 412);
+      this.drtbFiltr.TabIndex = 3;
+      this.drtbFiltr.Text = "";
+      // 
+      // drtbTrue
+      // 
+      this.drtbTrue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.drtbTrue.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.drtbTrue.Location = new System.Drawing.Point(2, 31);
+      this.drtbTrue.Name = "drtbTrue";
+      this.drtbTrue.Size = new System.Drawing.Size(179, 412);
+      this.drtbTrue.TabIndex = 3;
+      this.drtbTrue.Text = "";
+      // 
       // mmusForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,14 +239,11 @@
 
     #endregion
 
-    private System.Windows.Forms.RichTextBox rtbTrueData;
     private System.Windows.Forms.Panel pnlTrueData;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Panel pnlGenData;
-    private System.Windows.Forms.RichTextBox rtbGenData;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Panel pnlFiltrData;
-    private System.Windows.Forms.RichTextBox rtbfiltrData;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -258,6 +252,9 @@
     private System.Windows.Forms.ToolStripMenuItem mnuGenData;
     private System.Windows.Forms.ToolStripMenuItem mnuFiltrData;
     private System.Windows.Forms.FlowLayoutPanel pnlWork;
+    private src.gui.DataRtb drtbTrue;
+    private src.gui.DataRtb drtbGen;
+    private src.gui.DataRtb drtbFiltr;
   }
 }
 
