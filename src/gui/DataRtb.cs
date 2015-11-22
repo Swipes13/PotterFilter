@@ -14,8 +14,9 @@ namespace PotterFilter.src.gui {
 
     public DataRtb() { }
     public void FillData(math.Matrix X, math.Matrix Y) {
+      verts.Clear();
       var r = Rounder;
-
+      Text = "x1\tx2\ty";
       for (int i = 0; i < Model.CountObs; i++) {
         Text += Math.Round(X[i, 0], r).ToString().Replace(',', '.') + "\t";
         Text += Math.Round(X[i, 1], r).ToString().Replace(',', '.') + "\t";

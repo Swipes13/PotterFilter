@@ -56,6 +56,7 @@
     <Compile Include="src\gui\Plot.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\gui\Risk.cs" />
     <Compile Include="src\math\Matrix.cs" />
     <Compile Include="src\math\RandomExtension.cs" />
     <Compile Include="src\Model.cs" />
@@ -73,6 +74,9 @@
     </Compile>
     <EmbeddedResource Include="src\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\gui\Plot.resx">
+      <DependentUpon>Plot.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

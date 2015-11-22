@@ -12,8 +12,6 @@ using PotterFilter.src.gui;
 
 namespace PotterFilter {
   public partial class mmusForm : Form {
-    Model model = null;
-    PotterAlgorithm potter = null;
     public mmusForm() {
       InitializeComponent();
       int pnlSize = 150;
@@ -27,18 +25,18 @@ namespace PotterFilter {
     }
     public void mmus() {
       try {
-        model = new Model();
-        potter = new PotterAlgorithm(model);
+        Model model = new Model();
+        PotterAlgorithm potter = new PotterAlgorithm(model);
         if (!potter.Work()) {
           MessageBox.Show("Алгоритм не работает.");
           return;
         }
+        fillRTBs(model, potter);
       }
       catch (Exception ex) {
         MessageBox.Show(ex.Message,"Error!");
       }
 
-      fillRTBs(model, potter);
     }
 
     void fillRTBs(Model mdl, PotterAlgorithm alg) {
@@ -52,16 +50,49 @@ namespace PotterFilter {
       p1.AddPoints(drtbGen.Verts, new Pen(Color.Red, 1.8f));
       drtbFiltr.FillData(alg.Xtt, alg.Yt);
       p1.AddPoints(drtbFiltr.Verts, new Pen(Color.Blue, 1.8f));
+
+      addRisksX(p1);
+      addRisksY(p1);
+
       p1.Draw();
     }
+    private void addRisksY(Plot p) {
+      //p.AddRiskY(0.0, true);
 
+      double valueMin = Math.Round(p.MinValueY,1);
+      double valueMax = Math.Round(p.MaxValueY,1);
+
+      int stepCount = 5;
+      double delta = valueMax - valueMin;
+      double step = delta/stepCount;
+      for (int i = 0; i < stepCount; i++) {
+        p.AddRiskY(valueMin + step * i, true);
+      }
+
+      p.AddRiskY(valueMin, true);
+      p.AddRiskY(valueMax, true);
+    }
+    private void addRisksX(Plot p) {
+      List<int> drawSX = (new int[] { 0, 5, 10, 15, 20, 24 }).ToList();
+      for (int i = 0; i < Model.CountObs; i++) {
+        if (!drawSX.Contains(i)) {
+          p.AddRiskX(i, false);
+          continue;
+        }
+        p.AddRiskX(i, true);
+      }
+    }
     private void mnuItemClick(object sender, EventArgs e) {
       ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
     }
 
     private void pnlWork_SizeChanged(object sender, EventArgs e) {
       foreach (Plot p in pnlWork.Controls)
-        p.ReSize(new Size(pnlWork.Size.Width,p.Size.Height));
+        p.ReSize(new Size(pnlWork.Size.Width - 25,p.Size.Height));
+    }
+
+    private void generateToolStripMenuItem_Click(object sender, EventArgs e) {
+      mmus();
     }
   }
 }

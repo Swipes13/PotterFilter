@@ -29,21 +29,22 @@
     private void InitializeComponent()
     {
       this.pnlTrueData = new System.Windows.Forms.Panel();
+      this.drtbTrue = new PotterFilter.src.gui.DataRtb();
       this.label1 = new System.Windows.Forms.Label();
       this.pnlGenData = new System.Windows.Forms.Panel();
+      this.drtbGen = new PotterFilter.src.gui.DataRtb();
       this.label2 = new System.Windows.Forms.Label();
       this.pnlFiltrData = new System.Windows.Forms.Panel();
+      this.drtbFiltr = new PotterFilter.src.gui.DataRtb();
       this.label3 = new System.Windows.Forms.Label();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuTrueData = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuGenData = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuFiltrData = new System.Windows.Forms.ToolStripMenuItem();
       this.pnlWork = new System.Windows.Forms.FlowLayoutPanel();
-      this.drtbGen = new PotterFilter.src.gui.DataRtb();
-      this.drtbFiltr = new PotterFilter.src.gui.DataRtb();
-      this.drtbTrue = new PotterFilter.src.gui.DataRtb();
       this.pnlTrueData.SuspendLayout();
       this.pnlGenData.SuspendLayout();
       this.pnlFiltrData.SuspendLayout();
@@ -60,6 +61,16 @@
       this.pnlTrueData.Padding = new System.Windows.Forms.Padding(2);
       this.pnlTrueData.Size = new System.Drawing.Size(183, 445);
       this.pnlTrueData.TabIndex = 1;
+      // 
+      // drtbTrue
+      // 
+      this.drtbTrue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.drtbTrue.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.drtbTrue.Location = new System.Drawing.Point(2, 31);
+      this.drtbTrue.Name = "drtbTrue";
+      this.drtbTrue.Size = new System.Drawing.Size(179, 412);
+      this.drtbTrue.TabIndex = 3;
+      this.drtbTrue.Text = "";
       // 
       // label1
       // 
@@ -83,6 +94,16 @@
       this.pnlGenData.Size = new System.Drawing.Size(183, 445);
       this.pnlGenData.TabIndex = 2;
       // 
+      // drtbGen
+      // 
+      this.drtbGen.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.drtbGen.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.drtbGen.Location = new System.Drawing.Point(2, 31);
+      this.drtbGen.Name = "drtbGen";
+      this.drtbGen.Size = new System.Drawing.Size(179, 412);
+      this.drtbGen.TabIndex = 2;
+      this.drtbGen.Text = "";
+      // 
       // label2
       // 
       this.label2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -104,6 +125,16 @@
       this.pnlFiltrData.Padding = new System.Windows.Forms.Padding(2);
       this.pnlFiltrData.Size = new System.Drawing.Size(183, 445);
       this.pnlFiltrData.TabIndex = 3;
+      // 
+      // drtbFiltr
+      // 
+      this.drtbFiltr.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.drtbFiltr.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.drtbFiltr.Location = new System.Drawing.Point(2, 31);
+      this.drtbFiltr.Name = "drtbFiltr";
+      this.drtbFiltr.Size = new System.Drawing.Size(179, 412);
+      this.drtbFiltr.TabIndex = 3;
+      this.drtbFiltr.Text = "";
       // 
       // label3
       // 
@@ -129,9 +160,18 @@
       // 
       // fileToolStripMenuItem
       // 
+      this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generateToolStripMenuItem});
       this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
       this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
       this.fileToolStripMenuItem.Text = "File";
+      // 
+      // generateToolStripMenuItem
+      // 
+      this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
+      this.generateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.generateToolStripMenuItem.Text = "Generate";
+      this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
       // 
       // viewToolStripMenuItem
       // 
@@ -175,6 +215,7 @@
       // 
       // pnlWork
       // 
+      this.pnlWork.AutoScroll = true;
       this.pnlWork.Dock = System.Windows.Forms.DockStyle.Fill;
       this.pnlWork.Location = new System.Drawing.Point(549, 24);
       this.pnlWork.MinimumSize = new System.Drawing.Size(1, 1);
@@ -182,36 +223,6 @@
       this.pnlWork.Size = new System.Drawing.Size(348, 445);
       this.pnlWork.TabIndex = 5;
       this.pnlWork.SizeChanged += new System.EventHandler(this.pnlWork_SizeChanged);
-      // 
-      // drtbGen
-      // 
-      this.drtbGen.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.drtbGen.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.drtbGen.Location = new System.Drawing.Point(2, 31);
-      this.drtbGen.Name = "drtbGen";
-      this.drtbGen.Size = new System.Drawing.Size(179, 412);
-      this.drtbGen.TabIndex = 2;
-      this.drtbGen.Text = "";
-      // 
-      // drtbFiltr
-      // 
-      this.drtbFiltr.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.drtbFiltr.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.drtbFiltr.Location = new System.Drawing.Point(2, 31);
-      this.drtbFiltr.Name = "drtbFiltr";
-      this.drtbFiltr.Size = new System.Drawing.Size(179, 412);
-      this.drtbFiltr.TabIndex = 3;
-      this.drtbFiltr.Text = "";
-      // 
-      // drtbTrue
-      // 
-      this.drtbTrue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.drtbTrue.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.drtbTrue.Location = new System.Drawing.Point(2, 31);
-      this.drtbTrue.Name = "drtbTrue";
-      this.drtbTrue.Size = new System.Drawing.Size(179, 412);
-      this.drtbTrue.TabIndex = 3;
-      this.drtbTrue.Text = "";
       // 
       // mmusForm
       // 
@@ -255,6 +266,7 @@
     private src.gui.DataRtb drtbTrue;
     private src.gui.DataRtb drtbGen;
     private src.gui.DataRtb drtbFiltr;
+    private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
   }
 }
 
