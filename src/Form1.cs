@@ -14,47 +14,40 @@ namespace PotterFilter {
   public partial class mmusForm : Form {
     public mmusForm() {
       InitializeComponent();
-      int pnlSize = 150;
-      pnlTrueData.DataBindings.Add(new Binding("Visible", mnuTrueData, "Checked"));
-      pnlGenData.DataBindings.Add(new Binding("Visible", mnuGenData, "Checked"));
-      pnlFiltrData.DataBindings.Add(new Binding("Visible", mnuFiltrData, "Checked"));
-      pnlFiltrData.DataBindings.Add(new Binding("Size", pnlGenData, "Size"));
-      pnlGenData.DataBindings.Add(new Binding("Size", pnlTrueData, "Size"));
-      pnlTrueData.Size = new System.Drawing.Size(pnlSize, pnlTrueData.Size.Height);
-      mmus();
+      spCntMain_Panel2_SizeChanged(this, new EventArgs());
+      drtbX.DataBindings.Add(new Binding("Visible", mnuX, "Checked"));
+      drtbYTrue.DataBindings.Add(new Binding("Visible", mnuYtrue, "Checked"));
+      drtbYFilter.DataBindings.Add(new Binding("Visible", mnuYfilter, "Checked"));
+      drtbYGen.DataBindings.Add(new Binding("Visible", mnuYgen, "Checked"));
     }
-    public void mmus() {
+    void fillAll(Model mdl, PotterAlgorithm alg) {
+      drtbYTrue.FillData(mdl.Y_True);
+      plotMain.ClearGraphs();
+
+      plotMain.AddGraph(new Graph(drtbYTrue.Verts, new Pen(Color.Green, 2.0f), "True"));
+      drtbYGen.FillData(mdl.Y);
+      plotMain.AddGraph(new Graph(drtbYGen.Verts, new Pen(Color.Red, 2.0f), "Generated"));
+      drtbYFilter.FillData(alg.Yt);
+      plotMain.AddGraph(new Graph(drtbYFilter.Verts, new Pen(Color.Blue, 2.0f), "Filtered"));
+      drtbX.FillDataX(mdl.X);
+      plotMain.Draw();
+      addRisksX(plotMain);
+      addRisksY(plotMain);
+      plotMain.Draw();
+    }
+    private void mmus(bool uConst, double amplitude, double[] x0Expected_, double r, double q, double p, double b, bool x1) {
       try {
-        Model model = new Model();
+        Model model = new Model(uConst, amplitude, x0Expected_,r,q,p,b,x1);
         PotterAlgorithm potter = new PotterAlgorithm(model);
         if (!potter.Work()) {
           MessageBox.Show("Алгоритм не работает.");
           return;
         }
-        fillRTBs(model, potter);
+        fillAll(model, potter);
       }
       catch (Exception ex) {
-        MessageBox.Show(ex.Message,"Error!");
+        MessageBox.Show(ex.Message, "Error!");
       }
-
-    }
-
-    void fillRTBs(Model mdl, PotterAlgorithm alg) {
-      int pbxHeight = 300;
-      Plot p1 = new Plot(new System.Drawing.Size(pnlWork.Size.Width - 25, pbxHeight));
-      pnlWork.Controls.Add(p1);
-
-      drtbTrue.FillData(mdl.X, mdl.Y_True);
-      p1.AddGraph(new Graph(drtbTrue.Verts, new Pen(Color.Green, 2.0f),"True"));
-      drtbGen.FillData(mdl.X, mdl.Y);
-      p1.AddGraph(new Graph(drtbGen.Verts, new Pen(Color.Red, 2.0f), "Generated"));
-      drtbFiltr.FillData(alg.Xtt, alg.Yt);
-      p1.AddGraph(new Graph(drtbFiltr.Verts, new Pen(Color.Blue, 2.0f), "Filtered"));
-
-      addRisksX(p1);
-      addRisksY(p1);
-
-      p1.Draw();
     }
     private void addRisksY(Plot p) {
       //p.AddRiskY(0.0, true);
@@ -82,17 +75,31 @@ namespace PotterFilter {
         p.AddRiskX(i, true);
       }
     }
-    private void mnuItemClick(object sender, EventArgs e) {
-      ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
-    }
-
-    private void pnlWork_SizeChanged(object sender, EventArgs e) {
-      foreach (Plot p in pnlWork.Controls)
-        p.ReSize(new Size(pnlWork.Size.Width - 25,p.Size.Height));
-    }
-
     private void generateToolStripMenuItem_Click(object sender, EventArgs e) {
-      mmus();
+      try {
+        double a = Convert.ToDouble(tbxA.Text.Replace('.', ','));
+        double x0X = Convert.ToDouble(tbxX0X.Text.Replace('.', ','));
+        double x0y = Convert.ToDouble(tbxX0Y.Text.Replace('.', ','));
+        double r = Convert.ToDouble(tbxR.Text.Replace('.', ','));
+        double q = Convert.ToDouble(tbxQ.Text.Replace('.', ','));
+        double p = Convert.ToDouble(tbxP.Text.Replace('.', ','));
+        double b = Convert.ToDouble(tbxB.Text.Replace('.', ','));
+
+        mmus(chbDistU.Checked, a, new double[] { x0X, x0y }, r, q, p, b, chbX1.Checked);
+        plotMain.Refresh();
+      }
+      catch (Exception ) {
+        MessageBox.Show("Incorrect data input!");
+      }
+    }
+    private void spCntMain_Panel2_SizeChanged(object sender, EventArgs e) {
+      plotMain.Refresh();
+    }
+    private void btnGen_Click(object sender, EventArgs e) {
+      generateToolStripMenuItem_Click(sender, e);
+    }
+    private void mnuX_Click(object sender, EventArgs e) {
+      ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
     }
   }
 }

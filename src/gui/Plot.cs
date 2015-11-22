@@ -28,6 +28,25 @@ namespace PotterFilter.src.gui {
     List<Risk> risksX = new List<Risk>();
     List<Risk> risksY= new List<Risk>();
 
+    public void ClearGraphs(){
+      graphs.Clear();
+      risksX.Clear();
+      risksY.Clear();
+      ctxMnuMain.Items.Clear();
+      xMin = 0.0; xMax = 0.0;
+      deltaX = 0.0;
+      yMin = 0.0; yMax = 0.0;
+      deltaY = 0.0;
+      graphic.FillRectangle(new SolidBrush(Color.White), 0, 0, Width, Height);
+      Refresh();
+    }
+    public Plot() {
+      InitializeComponent();
+      Image = new Bitmap(Size.Width, Size.Height);
+      graphs = new List<Graph>();
+      graphic = Graphics.FromImage(Image);
+      graphic.FillRectangle(new SolidBrush(Color.White), 0, 0, Width, Height);
+    }
     public Plot(Size size) {
       InitializeComponent();
       Size = size;
@@ -54,8 +73,7 @@ namespace PotterFilter.src.gui {
       foreach (Risk r in risksY)
         r.Draw(graphic, riskPen);
     }
-    public void ReSize(Size size) {
-      Size = size;
+    public void ReSize() {
       Image = new Bitmap(Size.Width, Size.Height);
       graphic = Graphics.FromImage(Image);
       graphic.FillRectangle(new SolidBrush(Color.White), 0, 0, Width, Height);
@@ -76,7 +94,6 @@ namespace PotterFilter.src.gui {
       ctxMnuMain.Items.Add(itm);
       reCalcPoints();
     }
-
     void itm_Click(object sender, EventArgs e) {
       ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
       for (int i = 0; i < graphs.Count; i++) {
@@ -140,5 +157,10 @@ namespace PotterFilter.src.gui {
       if(e.Button == System.Windows.Forms.MouseButtons.Right)
         ctxMnuMain.Show(this,e.Location);
     }
+    protected override void OnSizeChanged(EventArgs e) {
+      base.OnSizeChanged(e);
+      ReSize();
+    }
   }
+
 }

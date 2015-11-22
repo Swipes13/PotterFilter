@@ -8,18 +8,25 @@ using System.Windows.Forms;
 namespace PotterFilter.src.gui {
   public class DataRtb : RichTextBox {
     public int Rounder = 3;
+    public String name;
 
     private List<double[]> verts = new List<double[]>();
     public double[][] Verts;
 
     public DataRtb() { }
-    public void FillData(math.Matrix X, math.Matrix Y) {
-      verts.Clear();
+    public void FillDataX(math.Matrix X) {
       var r = Rounder;
-      Text = "x1\tx2\ty";
+      Text = this.Name + Environment.NewLine;
       for (int i = 0; i < Model.CountObs; i++) {
         Text += Math.Round(X[i, 0], r).ToString().Replace(',', '.') + "\t";
-        Text += Math.Round(X[i, 1], r).ToString().Replace(',', '.') + "\t";
+        Text += Math.Round(X[i, 1], r).ToString().Replace(',', '.') + Environment.NewLine;
+      }
+    }
+    public void FillData(math.Matrix Y) {
+      verts.Clear();
+      var r = Rounder;
+      Text = this.Name + Environment.NewLine;
+      for (int i = 0; i < Model.CountObs; i++) {
         Text += Math.Round(Y[i, 0], r).ToString().Replace(',', '.') + Environment.NewLine;
         verts.Add(new double[] { i, Y[i, 0] });
       }
