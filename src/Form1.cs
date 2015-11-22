@@ -40,16 +40,16 @@ namespace PotterFilter {
     }
 
     void fillRTBs(Model mdl, PotterAlgorithm alg) {
-      int pbxHeight = 200;
-      Plot p1 = new Plot(new System.Drawing.Size(pnlWork.Size.Width, pbxHeight));
+      int pbxHeight = 300;
+      Plot p1 = new Plot(new System.Drawing.Size(pnlWork.Size.Width - 25, pbxHeight));
       pnlWork.Controls.Add(p1);
 
       drtbTrue.FillData(mdl.X, mdl.Y_True);
-      p1.AddPoints(drtbTrue.Verts, new Pen(Color.Green, 1.8f));
+      p1.AddGraph(new Graph(drtbTrue.Verts, new Pen(Color.Green, 2.0f),"True"));
       drtbGen.FillData(mdl.X, mdl.Y);
-      p1.AddPoints(drtbGen.Verts, new Pen(Color.Red, 1.8f));
+      p1.AddGraph(new Graph(drtbGen.Verts, new Pen(Color.Red, 2.0f), "Generated"));
       drtbFiltr.FillData(alg.Xtt, alg.Yt);
-      p1.AddPoints(drtbFiltr.Verts, new Pen(Color.Blue, 1.8f));
+      p1.AddGraph(new Graph(drtbFiltr.Verts, new Pen(Color.Blue, 2.0f), "Filtered"));
 
       addRisksX(p1);
       addRisksY(p1);

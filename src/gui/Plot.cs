@@ -12,7 +12,6 @@ namespace PotterFilter.src.gui {
     double whiteX = 2.5;
     double whiteY = 0.2;
     Graphics graphic = null;
-    List<Pen> pens = new List<Pen>();
 
     public double MinValueX { get { return xMin; } private set { } }
     public double MaxValueX { get { return xMax; } private set { } }
@@ -23,11 +22,9 @@ namespace PotterFilter.src.gui {
     double deltaX = 0.0;
     double yMin = 0.0, yMax = 0.0;
     double deltaY = 0.0;
-    List<List<PointF>> points;
     private System.ComponentModel.IContainer components;
-    private ToolStripMenuItem toolStripMenuItem1;
     private ContextMenuStrip ctxMnuMain;
-    List<PointF[]> pointsDraw;
+    List<Graph> graphs;
     List<Risk> risksX = new List<Risk>();
     List<Risk> risksY= new List<Risk>();
 
@@ -35,11 +32,9 @@ namespace PotterFilter.src.gui {
       InitializeComponent();
       Size = size;
       Image = new Bitmap(Size.Width, Size.Height);
-      points = new List<List<PointF>>();
-      pointsDraw = new List<PointF[]>();
+      graphs = new List<Graph>();
       graphic = Graphics.FromImage(Image);
       graphic.FillRectangle(new SolidBrush(Color.White), 0, 0, Width, Height);
-      ctxMnuMain.Items[0].Click += PlotCtxData_Click;
     }
     public void AddRiskX(double value, bool drawS) {
       var point = new PointF((float)value, -0.1f);
@@ -52,8 +47,8 @@ namespace PotterFilter.src.gui {
     void PlotCtxData_Click(object sender, EventArgs e) {
     }
     public void Draw() {
-      for (int i = 0; i < pointsDraw.Count; i++ )
-        graphic.DrawLines(pens[i], pointsDraw[i]);
+      foreach (Graph g in graphs)
+        g.Draw(graphic);
       foreach (Risk r in risksX) 
         r.Draw(graphic, riskPen);
       foreach (Risk r in risksY)
@@ -68,17 +63,31 @@ namespace PotterFilter.src.gui {
       reCalcRisks();
       Draw();
     }
-    public void AddPoints(double[][] points_, Pen pen) {
-      points.Add(new List<PointF>());
-      pens.Add(pen);
-      foreach (double[] point in points_) {
-        if (point[0] < xMin) xMin = point[0]; if (point[0] > xMax) xMax = point[0];
-        if (point[1] < yMin) yMin = point[1]; if (point[1] > yMax) yMax = point[1];
-        deltaX = xMax - xMin + 0.1;
-        deltaY = yMax - yMin + 0.1;
-        points.Last().Add(new PointF((float)point[0], (float)point[1]));
-      }
+    public void AddGraph(Graph graph) {
+      graphs.Add(graph);
+      if (graph.MinValueX < xMin) { xMin = graph.MinValueX; deltaX = xMax - xMin; }
+      if (graph.MaxValueX > xMax) { xMax = graph.MaxValueX; deltaX = xMax - xMin; }
+      if (graph.MinValueY < yMin) { yMin = graph.MinValueY; deltaY = yMax - yMin; }
+      if (graph.MaxValueY > yMax) { yMax = graph.MaxValueY; deltaY = yMax - yMin; }
+      ToolStripMenuItem itm = new ToolStripMenuItem();
+      itm.Text = graph.Name;
+      itm.Checked = true;
+      itm.Click += itm_Click;
+      ctxMnuMain.Items.Add(itm);
       reCalcPoints();
+    }
+
+    void itm_Click(object sender, EventArgs e) {
+      ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
+      for (int i = 0; i < graphs.Count; i++) {
+        if (graphs[i].Name == ((ToolStripMenuItem)sender).Text) {
+          graphs[i].NeedToDraw = ((ToolStripMenuItem)sender).Checked;
+          break;
+        }
+      }
+      graphic.FillRectangle(new SolidBrush(Color.White), 0, 0, Width, Height);
+      Draw();
+      Refresh();
     }
     private PointF transformCoord(PointF coord) {
       PointF ret = new PointF();
@@ -93,13 +102,9 @@ namespace PotterFilter.src.gui {
       return ret;
     }
     private void reCalcPoints() {
-      pointsDraw.Clear();
-      for (int i = 0; i < points.Count; i++) {
-        pointsDraw.Add(new PointF[points[i].Count]);
-        for (int j = 0; j < points[i].Count; j++)
-          pointsDraw[i][j] = transformCoord(points[i][j]);
-      }
-      
+      for (int i = 0; i < graphs.Count; i++) 
+        for (int p = 0; p < graphs[i].TruePoints.Count; p++) 
+          graphs[i].Points[p] = transformCoord(graphs[i].TruePoints[p]);
     }
     private void reCalcRisks() {
       for (int i = 0; i < risksX.Count; i++) {
@@ -119,25 +124,14 @@ namespace PotterFilter.src.gui {
     }
     private void InitializeComponent() {
       this.components = new System.ComponentModel.Container();
-      this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
       this.ctxMnuMain = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.ctxMnuMain.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
       this.SuspendLayout();
       // 
-      // toolStripMenuItem1
-      // 
-      this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-      this.toolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
-      this.toolStripMenuItem1.Text = "Данные...";
-      // 
       // ctxMnuMain
       // 
-      this.ctxMnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
       this.ctxMnuMain.Name = "ctxMnuMain";
       this.ctxMnuMain.Size = new System.Drawing.Size(127, 26);
-      this.ctxMnuMain.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
       this.ResumeLayout(false);
 

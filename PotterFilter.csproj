@@ -53,6 +53,7 @@
     <Compile Include="src\gui\DataRtb.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\gui\Graph.cs" />
     <Compile Include="src\gui\Plot.cs">
       <SubType>Component</SubType>
     </Compile>
